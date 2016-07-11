@@ -8,9 +8,10 @@
 			}
 			body {
 				margin: auto;
-				width: 69.64em;
-				min-width: 975px;
+				/*width: 69.64em;
+				min-width: 975px;*/
 				text-align: center;
+				max-width: 825px;
 			}
 			h1 {
 				font-size: 2em;
@@ -67,10 +68,116 @@
 				margin-bottom: 2em;
 			}
 		</style>
+		<title>Razer Core Latency Testing</title>
 	</head>
 	<body>
-		<h1>Razer Core Latency TEsting</h1>
-		<sub>By Shane Calimlim <a href="mailto:shanecalimlim@gmail.com">email</a> <a href="https://twitter.com/ShaneCalimlim">twitter</a></sub>
+		<h1>Razer Core Latency Testing</h1>
+		<sub>
+			By Shane Calimlim
+			<a href="mailto:shanecalimlim@gmail.com">email</a>
+			<a href="https://twitter.com/ShaneCalimlim">twitter</a>
+		</sub>
+		<p>
+			This year I decided to try using a laptop as my sole home machine. A good year to pick it seemed! The Razer
+			Blade (2016) is a powerhouse in an extremely portable form factor, and the Razer Core would give me the GPU
+			oomph I <i>need</i>.
+		</p>
+		<p>
+			The Blade is great, even without the Core it's a fantastic laptop: it does everything I want, and easily
+			goes with me. Chroma is pretty cool too :) I've loved the Core so far too, while the Blade's 970M is no
+			slouch, finally cranking up some settings back to what I'm used to felt awfully good.
+		</p>
+		<p>
+			Most of the games I've been playing lately are not twitchy. But I booted up Doom to check how performance
+			was and, while framerate was solid, it felt a bit off. I'm very sensitive to input latency in shooters so
+			I was immediately a little suspicious.
+		</p>
+		<p>
+			It wasn't a big surprise. Before I ordered the Core I suspected there would be additional latency,
+			particularly if it was used to power the laptop display. Not only must it send data over Thunderbolt to the
+			GPU, the framebuffer needs to come back over, and then be displayed through another GPU. I have a latency
+			testing rig that I use to test our engine/rendering tech at work and decided to apply it to the Core.
+		</p>
+		<h2>Testing Setup &amp; Procedure</h2>
+		<p>
+			<ul>
+				<li>Razer GPU Switcher v1.0.2.4, GeForce Driver 368.39</li>
+				<li>GeForce GTX 970M internal, GeForce GTX 1070 external</li>
+				<li>A small program that clears the screen as fast as it can (vsync off); selecting the color based on whether the space bar is pressed</li>
+				<li>A 1000 fps camera</li>
+				<li>A keyboard with a Post-it note sticking up from the space bar</li>
+				<li>Something heavy to drop</li>
+			</ul>
+		</p>
+		<img src="setup.jpg">
+		<p>
+			I turn the camera on, drop something on the space bar, and check how many frames elapsed between the space
+			bar beginning movement (when I see the Post-it move) and when the screen changes color.
+		</p>
+		<p>
+			This is definitely a bit crude! There are a lot of things that I don't have very precise control over:
+			<ul>
+				<li>When the space bar starts moving is not when it actually sends the input</li>
+				<li>Hopefully the object is falling at the same speed each time</li>
+				<li>The camera is extraordinarily low resolution and it can be difficult to see the precise frame the Post-it starts moving</li>
+				<li>While the test app is running with vsync off, the monitor is still 60hz, so things can align differently</li>
+			</ul>
+		</p>
+		<p>
+			However, the room for mechanical/human imprecision affecting the results is only a few milliseconds, and
+			results are consistent enough that meaningful comparisons can still be made.
+		</p>
+		<p>
+			<b>Please realize that because of my test setup, the specific results are only meaningful in this
+			comparison. They are not objectively useful in isolation.</b>
+		</p>
+		<p>
+			I'll be testing two things:
+			<ol>
+				<li>How does latency compare between the Core and internal GPU when using the laptop's internal display?</li>
+				<li>And how does it compare when an external display is used?</li>
+			</ol>
+		<h2>Results: Internal Display</h2>
+		<img src="results-internal.png">
+		<p>
+			There is an odd outlier in the “External GPU” column, likely due to unlucky alignment of refresh rate and
+			possibly the OS deciding to shuffle some threads around, but the amount it skews the results is very small.
+			Overall, the results are in the expected consistency range to show that the test methodology is working.
+		</p>
+		<p>
+			As expected there is additional latency, 30ms after averaging.
+		</p>
+		<p>
+			It may be important to consider that by not using vsync and by rendering at an extremely high frame rate,
+			I may be saturating the Thunderbolt bandwidth sending hundreds or thousands of framebuffers back per
+			second, possibly hurting the Core's results. However, my test program was not running at 100% CPU so I
+			assume it was being throttled by the drivers or DirectX. It would be interesting to run another test with
+			vsync on, or at least a throttled frame rate.
+		</p>
+		<h2>Results: External Display</h2>
+		<img src="results-external.png">
+		<p>
+			Again there are some interesting outliers for the external GPU, this time going the other direction. These
+			probably got lucky with refresh rate alignment, likely amplified by the GPU being much faster: spitting
+			out more frames makes it more likely to get closer to the monitor's refresh. Their skewing of the average
+			is small, and overall the test results land in a consistent range.
+		</p>
+		<p>
+			Response time for powering an external display with the internal GPU was a bit faster than powering the
+			laptop's display, but is definitely within the margin of error for my test setup.
+		</p>
+		<h2>Conclusion</h2>
+		<p>
+			I'm glad I got my Core! It adds that oomph I've been missing since going laptop. But if I'm playing an FPS
+			and only have my laptop as a monitor, I'd probably opt to drop the settings and play on the 970M instead
+			of the Core's 1070.
+		</p>
+		<p>
+			Razer did not design the Core to be portable. Soon I should have a proper desk setup again with solid
+			gaming monitors. I think then I'll be hitting the real target audience for this device: people with a
+			proper gaming station that just replace the tower with a laptop. And it looks like the Core should do
+			excellently there.
+		</p>
 		<!--
 		<p>
 			WayForward's art style is one of its signatures.  Ensuring that our
@@ -90,7 +197,7 @@
 			represent some colors (linearly-interpolated) between them.  Given
 			its blocky nature it tends to artifact in ways similar to JPEG.
 			Like JPEG, DXT works pretty well on most images.  Unfortunately our
-			art assets seem to hit DXT’s weak spots on the head and artifacts
+			art assets seem to hit DXT's weak spots on the head and artifacts
 			are very obvious.
 		</p>
 		<div class="image">
@@ -108,7 +215,7 @@
 		<p>
 			Switching away from DXT entirely would be ideal, but the
 			performance sacrifices necessary to do so are unacceptable (much
-			more memory, slower texture lookups).  We weren’t alone in reaching
+			more memory, slower texture lookups).  We weren't alone in reaching
 			this conclusion.  There are many variations that seek to utilize
 			the DXT format by applying additional encoding on top of it to
 			improve image quality.  We had varying levels of success with
@@ -117,7 +224,7 @@
 			variants also sacrificed the alpha channel to store extra data, but
 			alpha is key to our HD style.  This is not surprising, given that
 			DXT works reasonably well on most photorealistic images, so
-			focusing on improving color accuracy beyond DXT’s 16 bit colors is
+			focusing on improving color accuracy beyond DXT's 16 bit colors is
 			sensible.  Modern 3D games also rarely use alpha, so repurposing
 			it incurs no additional cost.
 		</p>
@@ -193,7 +300,7 @@
 		<p>
 			For black pixels, the multiply value is zero – making the color
 			value irrelevant.  To reduce artifacts we do some post-processing
-			and ‘borrow’ colors from neighboring pixels when a color value
+			and ‘borrow' colors from neighboring pixels when a color value
 			does not matter.
 		</p>
 		<div class="image">
@@ -202,10 +309,10 @@
 		</div>
 		<p class="imageNotes">
 			(1)	We borrow colors for fully-transparent pixels as well as black, when applicable.<br>
-			(2)	It is important to consider the bit-depth of the destination DXT data when determining whether a pixel is ‘black’;  a pixel with a value of 1/255 will floor to zero when stored in a 5/6-bit DXT channel.
+			(2)	It is important to consider the bit-depth of the destination DXT data when determining whether a pixel is ‘black';  a pixel with a value of 1/255 will floor to zero when stored in a 5/6-bit DXT channel.
 		</p>
 		<p>
-			We’re left with two maps that fit DXT very well.  The color map
+			We're left with two maps that fit DXT very well.  The color map
 			rarely has more than two distinct colors in a given 4x4 block.  The
 			multiply map is single-channel, so its values will always
 			interpolate decently between two endpoints.  Reconstruction in the
@@ -255,12 +362,12 @@
 			was a gut-decision based on texture-cache characteristics of some
 			of our target platforms – we have not benchmarked to verify if it
 			is worthwhile – and it does reduce the quality of our multiply map.
-			However, this does give us DXT1’s 1-bit alpha flags to play with
+			However, this does give us DXT1's 1-bit alpha flags to play with
 			(and some unused channels that could possibly be used to extend the
 			format later).
 		</p>
 		<p>
-			If a pixel is non-opaque the color map’s alpha is set to zero and
+			If a pixel is non-opaque the color map's alpha is set to zero and
 			the multiply map stores the alpha value. This reduces the total
 			number of colors DXT can represent in the block from 4 to 3, but
 			this is insignificant in our color maps (and it would always happen
@@ -428,7 +535,7 @@ return float4( tex0.rgb*mask, tex0.a+tex1.g );</pre>
 					Precision should be gained by adding scaling.  Simple
 					map-wide scaling factors could be added:
 					<pre>map = tex*scale + min; // with scale and min passed in as shader uniforms</pre>
-					Id Software’s
+					Id Software's
 					<a href="http://www.nvidia.com/object/real-time-ycocg-dxt-compression.html">YCoCg variant</a>
 					uses a more advanced per-block scaling method that could be applied here as well.
 				</li>
