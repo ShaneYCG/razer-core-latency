@@ -20,6 +20,11 @@
 				text-align: center;
 				text-shadow: 0 1px 0 #fff;
 			}
+			h2 {
+				font-size: 1.5em;
+				margin: 1em;
+				text-align: center;
+			}
 			sub {
 				font-size: 1em;
 				margin: 3em 0 0.5em 0;
@@ -27,16 +32,7 @@
 				text-shadow: 0 1px 0 #fff;
 				padding-left: 2em;
 			}
-			pre {
-				font: normal 0.875em/1.75 monospace;
-				padding: 1.2em;
-				margin: 0em 2em 1em 2em;
-				max-width: 100%;
-				background: #fafafa;
-				text-align: left;
-			}
 			p {
-				text-indent: 1.5em;
 				text-align: left;
 			}
 			ul, ol {
@@ -44,29 +40,6 @@
 			}
 			div.image {
 				display: inline;
-			}
-			span.imageDesc {
-				margin-left: 3px;
-				margin-top: 3px;
-				position: absolute;
-				text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
-				font-weight: bold;
-				font-family: helvetica;
-			}
-			p.imageNotes {
-				margin-left: 2em;
-				text-indent: 0em;
-				text-align: center;
-				font-style: italic;
-				font-size: 0.9em;
-			}
-			p.footer {
-				margin-left: 0;
-				text-align: center;
-				font-style: italic;
-				font-size: 0.9em;
-				margin-top: 2em;
-				margin-bottom: 2em;
 			}
 		</style>
 		<title>Razer Core Latency Testing</title>
@@ -123,8 +96,6 @@
 				<li>The camera is extraordinarily low resolution and it can be difficult to see the precise frame the Post-it starts moving</li>
 				<li>While the test app is running with vsync off, the monitor is still 60hz, so things can align differently</li>
 			</ul>
-		</p>
-		<p>
 			However, the room for mechanical/human imprecision affecting the results is only a few milliseconds, so
 			results are consistent enough that meaningful comparisons can still be made.
 		</p>
